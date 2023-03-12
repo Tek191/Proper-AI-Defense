@@ -1,0 +1,12 @@
+class CfgFunctions {
+	class PAID {
+		class functions {
+			file = "PAID";
+			class main {postInit = 1;};
+			class addUnit {};
+			class addGroup {};
+			class addDisableAIPATHHandler {};
+			class addDoStopHandler {};
+		}
+	}
+}
