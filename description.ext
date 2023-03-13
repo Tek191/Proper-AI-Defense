@@ -7,6 +7,10 @@ class CfgFunctions {
 			class addGroup {};
 			class addDisableAIPATHHandler {};
 			class addDoStopHandler {};
+			class addInwardDefense {};
+			class addInwardDefenseHandler {};
+			class addGroupToInwardDefense {};
+			class isInArea {};
 		}
 	}
 }

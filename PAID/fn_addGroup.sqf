@@ -19,14 +19,18 @@ if (!isServer) exitWith {};
 if (NOT_GROUP) exitWith {diag_log format["PAID - %1 group type error", _group];};
 /*Value validation not required as {units grpNull} returns []*/
 
-if (_array isEqualTo 0) then {
-	[{!isNil "doStop_array"},  
-	{ 
-		{doStop_array pushBack _x;} forEach GROUP_MEMBERS;
-	}, [_group]] call CBA_fnc_waitUntilAndExecute;
-} else {
-	[{!isNil "disableAIPATH_array"},  
-	{ 
-		{disableAIPATH_array pushBack _x;} forEach GROUP_MEMBERS;
-	}, [_group]] call CBA_fnc_waitUntilAndExecute;	
+switch (_array) do {
+	case 0: {
+		[{!isNil "doStop_array"},  
+		{ 
+			{doStop_array pushBack _x;} forEach GROUP_MEMBERS;
+		}, [_group]] call CBA_fnc_waitUntilAndExecute;
+	};
+	case 1: {
+		[{!isNil "disableAIPATH_array"},  
+		{ 
+			{disableAIPATH_array pushBack _x;} forEach GROUP_MEMBERS;
+		}, [_group]] call CBA_fnc_waitUntilAndExecute;	
+	};
+	default {diag_log format["PAID - Unknown state %1 in {[%2, %3] call PAID_fnc_addGroup}", _array, _group, _array];};
 };

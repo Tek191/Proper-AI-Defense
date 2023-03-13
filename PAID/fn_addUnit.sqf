@@ -20,15 +20,18 @@ if (!isServer) exitWith {};
 if (NOT_OBJECT) exitWith {diag_log format["PAID - %1 unit type error", _unit];};
 if (NOT_UNIT) exitWith {diag_log format["PAID - %1 unit value error", _unit];};
 
-if (_array isEqualTo 0) then {
-	[{!isNil "doStop_array"},  
-	{ 
-		doStop_array pushBack (UNIT); 
-	}, [_unit]] call CBA_fnc_waitUntilAndExecute;
-} 
-else {
-	[{!isNil "disableAIPATH_array"},  
-	{ 
-		disableAIPATH_array pushBack (UNIT); 
-	}, [_unit]] call CBA_fnc_waitUntilAndExecute;
+switch (_array) do {
+	case 0: {
+		[{!isNil "doStop_array"},  
+		{ 
+			doStop_array pushBack (UNIT); 
+		}, [_unit]] call CBA_fnc_waitUntilAndExecute;
+	};
+	case 1: {
+		[{!isNil "disableAIPATH_array"},  
+		{ 
+			disableAIPATH_array pushBack (UNIT); 
+		}, [_unit]] call CBA_fnc_waitUntilAndExecute;
+	};
+	default {diag_log format["PAID - Unknown state %1 in {[%2, %3] call PAID_fnc_addUnit}", _array, _unit, _array];};
 };
