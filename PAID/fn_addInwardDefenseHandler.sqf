@@ -35,4 +35,4 @@ private _friendlies = [];
 	if (_counter isEqualTo 0) then {
 		[PER_FRAME_HANDLER] call CBA_fnc_removePerFrameHandler;
 	};
-}, 10, [_friendlies]] call CBA_fnc_addPerFrameHandler; //MAKE 10 
+}, 10, [_friendlies]] call CBA_fnc_addPerFrameHandler;
