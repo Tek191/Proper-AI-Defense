@@ -3,7 +3,7 @@ Written by Tek
 Version 1.0.2
 13/03/2023
 
-REQUIRES: CBA_3
+REQUIRES: CBA_A3
 ------------------------------------------------------------------------------------
 
 Ensure you have the following files and folders in your mission directory:
