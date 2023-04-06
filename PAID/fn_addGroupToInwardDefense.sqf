@@ -28,7 +28,6 @@ params ["_group", "_idName", ["_condition", true]];
 	if (_trigger isEqualTo -1) exitWith {diag_log format ["PAID - inwardDefenseID not found in {[%1, %2] call PAID_fnc_addGroupToInwardDefense}", P_group, P_idName];};
 
 	{
-		systemChat "disabled AI PATH";
 		[_x, "PATH"] remoteExec ["disableAI", owner _x];
 	} forEach units (P_group);
 
@@ -41,7 +40,6 @@ params ["_group", "_idName", ["_condition", true]];
 		(P_group) addWaypoint [getPos (P_trigger), 25, 1, "GUARD"];
 
 		{
-			systemChat "enabled AI PATH";
 			[_x, "PATH"] remoteExec ["enableAI", owner _x];
 		} forEach units (P_group);
 	}, [P_group, P_idName, P_condition, _trigger]] call CBA_fnc_waitUntilAndExecute;
