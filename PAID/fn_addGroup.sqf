@@ -14,17 +14,35 @@ RETURNS:
 
 params ["_group", "_array"];
 
-if (!isServer) exitWith {};
+if (!(isServer || !hasInterface)) exitWith {};
 
 if (NOT_GROUP) exitWith {diag_log format["PAID - %1 group type error", _group];};
 /*Value validation not required as {units grpNull} returns []*/
 
 switch (_array) do {
 	case 0: {
-		{_x setVariable ["PAID_doStop", true, false];} forEach GROUP_MEMBERS;
+		{
+			_x setVariable ["PAID_doStop", true, false];
+
+			private _EHID = _x addEventHandler ["Local", {
+				params ["_entity", "_isLocal"];
+				if (!_isLocal) exitWith {};
+				_entity disableAI "PATH";
+			}];
+			_x setVariable ["PAID_EHID", _EHID, false];
+		} forEach GROUP_MEMBERS;
 	};
 	case 1: {
-		{_x setVariable ["PAID_disableAIPATH", true, false];} forEach GROUP_MEMBERS;
+		{
+			_x setVariable ["PAID_disableAIPATH", true, false];
+
+			private _EHID = _x addEventHandler ["Local", {
+				params ["_entity", "_isLocal"];
+				if (!_isLocal) exitWith {};
+				_entity disableAI "PATH";
+			}];
+			_x setVariable ["PAID_EHID", _EHID, false];
+		} forEach GROUP_MEMBERS;
 	};
 	default {diag_log format["PAID - Unknown state %1 in {[%2, %3] call PAID_fnc_addGroup}", _array, _group, _array];};
 };

@@ -28,5 +28,9 @@ private _q3 = [_stateMachine, {}, {}, {}, "q3"] call CBA_statemachine_fnc_addSta
 }, "q2_q3_1"] call CBA_statemachine_fnc_addTransition;
 
 [_stateMachine, "q2", "q3", {UNIT_IN_COMBAT}, {
+	private _EHID = _this getVariable "PAID_EHID";
+	if (!isNil "_EHID") then {
+		_this removeEventHandler ["Local", _EHID];
+	};
 	[_this, "PATH"] remoteExec ["enableAI", owner _this];
 }, "q2_q3_2"] call CBA_statemachine_fnc_addTransition;

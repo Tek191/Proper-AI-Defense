@@ -29,6 +29,12 @@ params ["_group", "_idName", ["_condition", true]];
 
 	{
 		[_x, "PATH"] remoteExec ["disableAI", owner _x];
+		private _EHID = _x addEventHandler ["Local", {
+			params ["_entity", "_isLocal"];
+			if (!_isLocal) exitWith {};
+			_entity disableAI "PATH";
+		}];
+		_x setVariable ["PAID_EHID", _EHID, false];
 	} forEach units (P_group);
 
 	[{
@@ -40,6 +46,10 @@ params ["_group", "_idName", ["_condition", true]];
 		(P_group) addWaypoint [getPos (P_trigger), 25, 1, "GUARD"];
 
 		{
+			private _EHID = _x getVariable "PAID_EHID";
+			if (!isNil "_EHID") then {
+				_x removeEventHandler ["Local", _EHID];
+			};
 			[_x, "PATH"] remoteExec ["enableAI", owner _x];
 		} forEach units (P_group);
 	}, [P_group, P_idName, P_condition, _trigger]] call CBA_fnc_waitUntilAndExecute;
